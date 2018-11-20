@@ -136,25 +136,56 @@ class Caroussel {
       slidesToscroll: 1
       slidesVisible: 1
       },options)
-      this.children = [].slice.call(element.children)
-      let ratio =this.children.length / this.options.slidesVisible
-      let root = this.createDivWithClass('carroussel')
-      let container = this.createDivWithClass('carroussel__container')
-      container.style.width = (ratio * 100) + "%"
-      root.appendChild(container)
+      let.children = [].slice.call(element.children)
+this.currentItem = 0
+      this.root = this.createDivWithClass('carroussel')
+      this.container = this.createDivWithClass('carroussel__container')
 
-      this.element.appendChild(root)
+      this.root.appendChild(this.container)
 
-      this.children.forEach(fonction(child)=>{
+      this.element.appendChild(this.root)
+
+      this.items = children.map((child)=>{
         let item = this.createDivWitchclass('carroussel__item')
-item.style.width = ((100/ this.options.slidesVisible)/ratio)+"33,33%"
         item.appendChild(child)
-        container.appendChild(child)
+        this.container.appendChild(child)
+        return item
 
         })
+      this.setStyle()
+      this.createNavigation()
   }
+setStyle(){
+  let ratio =this.items.length / this.options.slidesVisible
+  this.container.style.width = (ratio * 100) + "%"
+  this.items.forEach(item=>item.style.width = ((100/ this.options.slidesVisible)/ratio)+"%")
+}
 
+createNavigation(){
+  let nexButton = this.createDivWithClass('carroussel__next')
+  let prevButton = this.createDivWithClass('carroussel__prev')
+  this.root.appendChild(nexButton)
+  this.root.appendChild(prevButton)
+  nexButton.addEventListener('click', this.next.bind(this))
+  prevButton.addEventListener('click', this.prev.bind(this))
+}
 
+next (){
+  this.gotoItem(this.currentItem + this.options.slidesToscroll)
+
+}
+
+prev(){
+  this.gotoItem(this.currentItem - this.options.slidesToscroll)
+}
+
+@param {number} index
+
+gotoItem(index){
+  let translatex = index * -100 / this.items.lengh
+  this.container.style.transform = translate3d(' + translatex +'%,0,0)'
+  this.currentItem = index
+}
 @param(string) className
 @returns (HTMLElement)
 let div =document.createElement('div')

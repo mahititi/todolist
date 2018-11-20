@@ -29,6 +29,7 @@ transform: translate3d(0,-1px,0);
 
 .carroussel{
   position: relative;
+  overflow: hidden;
 }
 .carroussel__container ::after {
   content:'';
@@ -39,4 +40,15 @@ transform: translate3d(0,-1px,0);
 
 .carroussel__item{
   float: left;
+}
+.carroussel__next, .carroussel__prev {
+  width: 40px;
+  height: 40px;
+  background: #FFF url(right.svg)center center no-repeat;
+  background-size: 20px 20px;
+  border-radius: 50%;
+  top: 50%;
+  margin-top: -20px;
+  right: -20px;
+  
 }
